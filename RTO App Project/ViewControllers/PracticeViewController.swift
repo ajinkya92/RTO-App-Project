@@ -17,16 +17,20 @@ class PracticeViewController: UIViewController {
     
     var jsonData = NSArray()
     
-    var answerIsCorrect = false
+    var shouldShowRightAnswer = false
     
-
+    var selectedAnswer: Int?
+    
+    var rightAnswer = String()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
         getJsonData()
     }
-
+    
 }
 
 // Mark: - Collection View Implementation
@@ -51,6 +55,7 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
         cell.tableView.delegate = self
         cell.tableView.dataSource = self
         
+        shouldShowRightAnswer = false
         
         cell.tableView.reloadData()
         
@@ -98,7 +103,7 @@ extension PracticeViewController: UITableViewDelegate, UITableViewDataSource {
         let option1 = individualData.value(forKey: "option_1") as! String
         let option2 = individualData.value(forKey: "option_2") as! String
         let option3 = individualData.value(forKey: "option_3") as! String
-        
+        rightAnswer = individualData.object(forKey: "answer") as! String
         
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "PracticeTableCell", for: indexPath) as! PracticeTableCell
@@ -108,19 +113,34 @@ extension PracticeViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.optionLbl.text = "1. \(option1)"
             
+            
         }
-        
+            
         else if indexPath.row == 1 {
             
             cell.optionLbl.text = "2. \(option2)"
             
         }
-        
+            
         else {
             
             cell.optionLbl.text = "3. \(option3)"
         }
         
+        if shouldShowRightAnswer {
+            
+            if indexPath.row + 1 == Int(rightAnswer) {
+                
+                cell.optionLbl.backgroundColor = UIColor.green
+            }
+            else if indexPath.row + 1 == selectedAnswer {
+                
+                cell.optionLbl.backgroundColor = UIColor.red
+            }
+        } else {
+            
+            cell.optionLbl.backgroundColor = UIColor.white
+        }
         
         return cell
         
@@ -131,27 +151,12 @@ extension PracticeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // Doubt - How can I show correct answer after clicking on wrong answer
         
-        
-        let individualData = jsonData.object(at:tableView.tag) as! NSDictionary
-        
-        let answers = individualData.object(forKey: "answer") as! String
-        
-        let selectedAnswer = (1 + indexPath.row)
-        
-        let myCell = tableView.cellForRow(at: indexPath) as! PracticeTableCell
-        
-        if selectedAnswer == Int(answers) {
+        if !shouldShowRightAnswer {
             
-            myCell.optionLbl.backgroundColor = UIColor.green
-            answerIsCorrect = true
-            
-        }
-        
-        else {
-            
-            myCell.optionLbl.backgroundColor = UIColor.red
+            selectedAnswer = indexPath.row + 1
+            shouldShowRightAnswer = true
+            tableView.reloadData()
         }
         
         
@@ -207,7 +212,7 @@ extension PracticeViewController {
             }
             
         }
-    
+        
     }
     
 }
