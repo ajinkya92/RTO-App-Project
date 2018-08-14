@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		170560952122A8A500034F01 /* ExamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170560942122A8A500034F01 /* ExamViewController.swift */; };
+		170560972122A90000034F01 /* ExamCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170560962122A90000034F01 /* ExamCollectionCell.swift */; };
+		170560992122AE6900034F01 /* ExamQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170560982122AE6900034F01 /* ExamQuestionCell.swift */; };
+		1705609B2122AEF500034F01 /* ExamOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1705609A2122AEF500034F01 /* ExamOptionCell.swift */; };
 		170A3BB2212012510059E107 /* PracticeQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170A3BB1212012510059E107 /* PracticeQuestionCell.swift */; };
 		171E1D1D211EF38D003CE06F /* PracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171E1D1C211EF38D003CE06F /* PracticeViewController.swift */; };
 		171E1D1F211EF3E4003CE06F /* PracticeCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171E1D1E211EF3E4003CE06F /* PracticeCollectionCell.swift */; };
@@ -24,6 +28,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		170560942122A8A500034F01 /* ExamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamViewController.swift; sourceTree = "<group>"; };
+		170560962122A90000034F01 /* ExamCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamCollectionCell.swift; sourceTree = "<group>"; };
+		170560982122AE6900034F01 /* ExamQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamQuestionCell.swift; sourceTree = "<group>"; };
+		1705609A2122AEF500034F01 /* ExamOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamOptionCell.swift; sourceTree = "<group>"; };
 		170A3BB1212012510059E107 /* PracticeQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeQuestionCell.swift; sourceTree = "<group>"; };
 		171E1D1C211EF38D003CE06F /* PracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewController.swift; sourceTree = "<group>"; };
 		171E1D1E211EF3E4003CE06F /* PracticeCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCollectionCell.swift; sourceTree = "<group>"; };
@@ -94,6 +102,7 @@
 				17282F9420FF8E5600A12194 /* MainDisplayViewController.swift */,
 				172D94562100BB2500A41A68 /* QuestionBankViewController.swift */,
 				171E1D1C211EF38D003CE06F /* PracticeViewController.swift */,
+				170560942122A8A500034F01 /* ExamViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -107,6 +116,9 @@
 				171E1D1E211EF3E4003CE06F /* PracticeCollectionCell.swift */,
 				171E1D20211F3233003CE06F /* PracticeTableCell.swift */,
 				170A3BB1212012510059E107 /* PracticeQuestionCell.swift */,
+				170560962122A90000034F01 /* ExamCollectionCell.swift */,
+				170560982122AE6900034F01 /* ExamQuestionCell.swift */,
+				1705609A2122AEF500034F01 /* ExamOptionCell.swift */,
 			);
 			path = CustomCells;
 			sourceTree = "<group>";
@@ -240,15 +252,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				170560952122A8A500034F01 /* ExamViewController.swift in Sources */,
 				172D94572100BB2500A41A68 /* QuestionBankViewController.swift in Sources */,
 				172D945B210115FA00A41A68 /* QuestionBankImageCell.swift in Sources */,
 				172D94592100BDCE00A41A68 /* QuestionBankTextCell.swift in Sources */,
 				171E1D1D211EF38D003CE06F /* PracticeViewController.swift in Sources */,
+				1705609B2122AEF500034F01 /* ExamOptionCell.swift in Sources */,
 				17282F9520FF8E5600A12194 /* MainDisplayViewController.swift in Sources */,
 				17282F9720FF8FA100A12194 /* MainDisplayTableViewCell.swift in Sources */,
 				171E1D21211F3233003CE06F /* PracticeTableCell.swift in Sources */,
 				171E1D1F211EF3E4003CE06F /* PracticeCollectionCell.swift in Sources */,
 				170A3BB2212012510059E107 /* PracticeQuestionCell.swift in Sources */,
+				170560992122AE6900034F01 /* ExamQuestionCell.swift in Sources */,
+				170560972122A90000034F01 /* ExamCollectionCell.swift in Sources */,
 				17282F8320FF8E3200A12194 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

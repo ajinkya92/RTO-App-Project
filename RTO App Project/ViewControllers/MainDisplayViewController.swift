@@ -54,6 +54,17 @@ class MainDisplayViewController: UIViewController, UITableViewDelegate, UITableV
             
             self.navigationController?.pushViewController(QuestionBankViewController!, animated: true)
         }
+        
+        if indexPath.row == 1 {
+            let practiceViewController = storyboard?.instantiateViewController(withIdentifier: "PracticeViewController") as! PracticeViewController
+            
+            self.navigationController?.pushViewController(practiceViewController, animated: true)
+            
+        }
+        
+        
     }
+    
+    
 
 }
