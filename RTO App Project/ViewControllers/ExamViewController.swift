@@ -12,15 +12,48 @@ import Alamofire
 class ExamViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    
     var arrayData = NSArray()
     
+    @IBOutlet weak var timerLbl: UILabel!
+    
+    var countdownTimer: Timer!
+    var totalTime = 30
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         getJsonData()
+        startTimer()
+        
+    }
+    
+    // Mark: - Timer Functionality
+    
+    func startTimer() {
+        countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ExamViewController.updateTime), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTime() {
+        timerLbl.text = "\(timeFormatted(totalTime))"
+        
+        if totalTime != 0 {
+            totalTime -= 1
+        } else {
+            endTimer()
+        }
+    }
+    
+    func endTimer() {
+        countdownTimer.invalidate()
+    }
+    
+    func timeFormatted(_ totalSeconds: Int) -> String {
+        let seconds: Int = totalSeconds % 60
+        let minutes: Int = (totalSeconds / 60) % 60
+        //     let hours: Int = totalSeconds / 3600
+        return String(format: "%02d:%02d", minutes, seconds)
+    
     }
     
     
@@ -109,6 +142,7 @@ extension ExamViewController: UITableViewDelegate, UITableViewDataSource {
         let individualData = arrayData.object(at: tableView.tag) as! NSDictionary
         let questions = individualData.value(forKey: "question") as! String
         
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExamQuestionCell") as! ExamQuestionCell
         
         cell.questionLbl.text = "Q.\(questions)"
@@ -158,6 +192,8 @@ extension ExamViewController {
             let jsonData = resopnse.result.value as! NSDictionary
             
             self.arrayData = jsonData.value(forKey: "data") as! NSArray
+            
+            
             
             DispatchQueue.main.async {
                 
