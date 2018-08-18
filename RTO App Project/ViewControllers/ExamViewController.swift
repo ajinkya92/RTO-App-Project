@@ -10,27 +10,65 @@ import UIKit
 import Alamofire
 
 class ExamViewController: UIViewController {
-
+    
     @IBOutlet weak var collectionView: UICollectionView!
     var arrayData = NSArray()
     
-    @IBOutlet weak var timerLbl: UILabel!
+    var tagSubstitute = 0
     
     var countdownTimer: Timer!
     var totalTime = 30
     
+    @IBOutlet weak var timerLbl: UILabel!
+    @IBOutlet weak var scoreAddLbl: UILabel!
+    @IBOutlet weak var scoreReduceLbl: UILabel!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         getJsonData()
         startTimer()
         
     }
     
-    // Mark: - Timer Functionality
+    
+    @IBAction func nextQuestionButtonPressed(_ sender: UIButton) {
+        
+        changeToNextQuestion()
+        
+    }
+    
+    
+    // Additional Required Methods for Answer Checking and UI Update
+    
+    func changeToNextQuestion() {
+        
+        if countdownTimer.isValid{
+            countdownTimer.invalidate()
+        }
+        
+        tagSubstitute += 1
+        
+        let indexPath = IndexPath(row: tagSubstitute, section: 0)
+        
+        collectionView.scrollToItem(at: indexPath, at: .right, animated: true)
+        
+        startTimer()
+    }
+    
+    
+}
+
+
+// Mark: - Timer Functionality
+
+extension ExamViewController {
+    
     
     func startTimer() {
+        totalTime = 30
         countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ExamViewController.updateTime), userInfo: nil, repeats: true)
     }
     
@@ -53,12 +91,13 @@ class ExamViewController: UIViewController {
         let minutes: Int = (totalSeconds / 60) % 60
         //     let hours: Int = totalSeconds / 3600
         return String(format: "%02d:%02d", minutes, seconds)
-    
+        
     }
     
     
-
+    
 }
+
 
 // Mark: CollectionView Implementation
 
@@ -74,7 +113,11 @@ extension ExamViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExamCollectionCell", for: indexPath) as! ExamCollectionCell
         
+        
         cell.tableView.tag = indexPath.row
+        
+        tagSubstitute = cell.tableView.tag
+        
         
         cell.tableView.delegate = nil
         cell.tableView.dataSource = nil
@@ -97,6 +140,7 @@ extension ExamViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
 }
 
+
 // Mark: - TableView Method Implementation
 
 extension ExamViewController: UITableViewDelegate, UITableViewDataSource {
@@ -108,7 +152,7 @@ extension ExamViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let individualData = arrayData.object(at: tableView.tag) as! NSDictionary
+        let individualData = arrayData.object(at: tagSubstitute) as! NSDictionary
         
         let option1 = individualData.value(forKey: "option_1") as! String
         let option2 = individualData.value(forKey: "option_2") as! String
@@ -119,13 +163,14 @@ extension ExamViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             
             cell.optionLbl.text = "1. \(option1)"
+            
         }
-        
+            
         else if indexPath.row == 1 {
             
             cell.optionLbl.text = "2. \(option2)"
         }
-        
+            
         else {
             
             cell.optionLbl.text = "3. \(option3)"
@@ -139,17 +184,18 @@ extension ExamViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let individualData = arrayData.object(at: tableView.tag) as! NSDictionary
+        let individualData = arrayData.object(at: tagSubstitute) as! NSDictionary
         let questions = individualData.value(forKey: "question") as! String
-        
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExamQuestionCell") as! ExamQuestionCell
         
         cell.questionLbl.text = "Q.\(questions)"
         
+        
         return cell
         
     }
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -174,10 +220,6 @@ extension ExamViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     
-    
-    
-    
-    
 }
 
 
@@ -192,7 +234,6 @@ extension ExamViewController {
             let jsonData = resopnse.result.value as! NSDictionary
             
             self.arrayData = jsonData.value(forKey: "data") as! NSArray
-            
             
             
             DispatchQueue.main.async {

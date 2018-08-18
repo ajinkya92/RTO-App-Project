@@ -483,6 +483,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="NEXT QUESTION"/>
+                                <connections>
+                                    <action selector="nextQuestionButtonPressed:" destination="qoe-fi-E4H" eventType="touchUpInside" id="BdU-Mv-uMT"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score Add" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIh-hr-TuI">
                                 <rect key="frame" x="20" y="697" width="80" height="21"/>
@@ -518,6 +521,8 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="Fg2-QG-QYX" id="ZrY-8T-wmG"/>
+                        <outlet property="scoreAddLbl" destination="JIh-hr-TuI" id="0iy-4k-IMM"/>
+                        <outlet property="scoreReduceLbl" destination="zgi-LF-cTF" id="B0C-M5-TU9"/>
                         <outlet property="timerLbl" destination="ccg-ef-jKI" id="gTo-Jj-gDS"/>
                     </connections>
                 </viewController>
